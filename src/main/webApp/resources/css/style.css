@@ -40,6 +40,10 @@ tr[data-userEnabled="false"] {
     opacity: 0.3;
 }
 
+tr[data-fuelEnabled="false"] {
+    opacity: 0.3;
+}
+
 .error, .message {
     padding: 10px;
     border-radius: 4px;

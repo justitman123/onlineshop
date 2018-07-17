@@ -6,19 +6,19 @@ public class Fuel extends AbstractNamedEntity {
 
     private BigDecimal price;
 
-    private String enable;
+    private boolean enable = true;
 
     private int fuelStationId;
 
     public Fuel() {
     }
 
-    public Fuel(BigDecimal price, String enable) {
+    public Fuel(BigDecimal price, boolean enable) {
         this.price = price;
         this.enable = enable;
     }
 
-    public Fuel(Integer id, String name, BigDecimal price, String enable) {
+    public Fuel(Integer id, String name, BigDecimal price, boolean enable) {
         super(id, name);
         this.price = price;
         this.enable = enable;
@@ -32,11 +32,11 @@ public class Fuel extends AbstractNamedEntity {
         this.price = price;
     }
 
-    public String getEnable() {
+    public boolean isEnable() {
         return enable;
     }
 
-    public void setEnable(String enable) {
+    public void setEnable(boolean enable) {
         this.enable = enable;
     }
 

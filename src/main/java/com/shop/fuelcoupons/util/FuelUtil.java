@@ -18,12 +18,12 @@ public class FuelUtil {
         Map<Integer, String> map = fuelStations.stream().collect(Collectors.toMap(FuelStation::getId, FuelStation::getName));
         return fuelList
                 .stream()
-                .map(fuel -> new FuelWithFuelStationName(fuel.getId(), map.get(fuel.getFuelStationId()), fuel.getName(), fuel.getPrice()))
+                .map(fuel -> new FuelWithFuelStationName(fuel.getId(), map.get(fuel.getFuelStationId()), fuel.isEnable(), fuel.getName(), fuel.getPrice()))
                 .sorted(Comparator.comparing(FuelWithFuelStationName::getFuelStationName))
                 .collect(toList());
     }
 
     public static FuelWithFuelStationName getWithFuelStation(Fuel fuel, FuelStation fuelStation) {
-        return new FuelWithFuelStationName(fuelStation.getName(), fuel.getName(), fuel.getPrice());
+        return new FuelWithFuelStationName(fuelStation.getName(), fuel.isEnable(), fuel.getName(), fuel.getPrice());
     }
 }

@@ -2,7 +2,9 @@ package com.shop.fuelcoupons.web.user;
 
 import com.shop.fuelcoupons.model.Role;
 import com.shop.fuelcoupons.model.User;
+import com.shop.fuelcoupons.service.FuelService;
 import com.shop.fuelcoupons.service.UserService;
+import com.shop.fuelcoupons.to.FuelWithFuelStationName;
 import com.shop.fuelcoupons.to.UserTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,16 +20,23 @@ public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private UserService service;
+    private UserService userService;
 
-    public List<User> getAll() {
+    @Autowired
+    private FuelService fuelService;
+
+    public List<FuelWithFuelStationName> getAllFuels() {
+        return fuelService.getAllWithFuelStations();
+    }
+
+    public List<User> getAllUsers() {
         log.info("getAll");
-        return service.getAll();
+        return userService.getAll();
     }
 
     public User get(int id) {
         log.info("get {}", id);
-        return service.get(id);
+        return userService.get(id);
     }
 
     public User create(User user) {
@@ -38,12 +47,12 @@ public abstract class AbstractUserController {
         role.add(Role.ROLE_USER);
         user.setRoles(role);
         System.out.println(user);
-        return service.create(user);
+        return userService.create(user);
     }
 
     public void delete(int id) {
         log.info("delete {}", id);
-        service.delete(id);
+        userService.delete(id);
     }
 
     public void update(User user, int id) {
@@ -56,22 +65,22 @@ public abstract class AbstractUserController {
         } else if (user.getId() != id) {
             throw new IllegalArgumentException(user + " must be with id=" + id);
         }
-        service.update(user);
+        userService.update(user);
     }
 
     public void update(UserTo userTo, int id) {
         log.info("update {} with id={}", userTo, id);
         assureIdConsistent(userTo, id);
-        service.update(userTo);
+        userService.update(userTo);
     }
 
     public User getByMail(String email) {
         log.info("getByEmail {}", email);
-        return service.getByEmail(email);
+        return userService.getByEmail(email);
     }
 
     public void enable(int id, boolean enabled) {
         log.info((enabled ? "enable " : "disable ") + id);
-        service.enable(id, enabled);
+        userService.enable(id, enabled);
     }
 }

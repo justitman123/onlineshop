@@ -39,7 +39,7 @@
 <div class="jumbotron">
     <div class="container">
         <section>
-            <table border="1" cellpadding="8" cellspacing="0" class="table table-striped">
+            <table class="table table-striped">
                 <thead>
                 <tr>
                     <th><spring:message code="fuelStation.name"/></th>
@@ -47,8 +47,8 @@
                     <th><spring:message code="fuel.price"/></th>
                 </tr>
                 </thead>
-                <c:forEach items="${fuelStations}" var="fuel">
-                    <tr>
+                <c:forEach items="${fuels}" var="fuel">
+                    <tr data-fuelEnabled="${fuel.enabled}">
                         <td>${fuel.fuelStationName}</td>
                         <td>${fuel.fuelName}</td>
                         <td>${fuel.price}</td>

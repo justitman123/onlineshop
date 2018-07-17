@@ -15,6 +15,7 @@ import java.util.List;
 public class FuelServiceImpl implements FuelService {
 
     private final FuelRepository fuelRepository;
+
     private final FuelStationRepository stationRepository;
 
     @Autowired

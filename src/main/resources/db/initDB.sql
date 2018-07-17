@@ -8,24 +8,26 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
 
-CREATE SEQUENCE global_seq START 100000;
+CREATE SEQUENCE global_seq
+  START 100000;
 
 CREATE TABLE users
 (
-  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name             VARCHAR                 NOT NULL,
-  email            VARCHAR                 NOT NULL,
-  password         VARCHAR                 NOT NULL,
-  registered       TIMESTAMP DEFAULT now() NOT NULL,
-  enabled          BOOL DEFAULT TRUE       NOT NULL
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name       VARCHAR                 NOT NULL,
+  email      VARCHAR                 NOT NULL,
+  password   VARCHAR                 NOT NULL,
+  registered TIMESTAMP DEFAULT now() NOT NULL,
+  enabled    BOOL DEFAULT TRUE       NOT NULL
 );
-CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
+CREATE UNIQUE INDEX users_unique_email_idx
+  ON users (email);
 
 CREATE TABLE orders (
-  id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  user_id       INTEGER        NOT NULL,
-  date_time     TIMESTAMP      NOT NULL,
-  status        VARCHAR        NOT NULL,
+  id        INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  user_id   INTEGER   NOT NULL,
+  date_time TIMESTAMP NOT NULL,
+  status    VARCHAR   NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX orders_unique_id_datetime_status_idx
@@ -33,20 +35,20 @@ CREATE UNIQUE INDEX orders_unique_id_datetime_status_idx
 
 CREATE TABLE order_details (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  amount        NUMERIC(13, 2)    NOT NULL,
-  fuel_name     VARCHAR           NOT NULL,
-  order_address VARCHAR           NOT NULL,
-  quantity      INTEGER           NOT NULL,
-  order_id      INTEGER           NOT NULL,
+  amount        NUMERIC(13, 2) NOT NULL,
+  fuel_name     VARCHAR        NOT NULL,
+  order_address VARCHAR        NOT NULL,
+  quantity      INTEGER        NOT NULL,
+  order_id      INTEGER        NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE
 );
 
 CREATE TABLE fuel_stations (
-  id     INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name   VARCHAR NOT NULL
+  id   INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name VARCHAR NOT NULL
 );
 CREATE UNIQUE INDEX fuel_station_unique_name_idx
-ON fuel_stations (name);
+  ON fuel_stations (name);
 
 CREATE TABLE fuels
 (
@@ -68,12 +70,12 @@ CREATE TABLE user_roles
 );
 
 CREATE TABLE carts (
-  id                  INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  user_id             INTEGER        NOT NULL,
-  fuel_station_name   VARCHAR           NOT NULL,
-  amount              NUMERIC(13, 2) NOT NULL,
-  price               NUMERIC(13, 2) NOT NULL,
-  fuel_name           VARCHAR           NOT NULL,
-  quantity            INTEGER        NOT NULL,
+  id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  user_id           INTEGER        NOT NULL,
+  fuel_station_name VARCHAR        NOT NULL,
+  amount            NUMERIC(13, 2) NOT NULL,
+  price             NUMERIC(13, 2) NOT NULL,
+  fuel_name         VARCHAR        NOT NULL,
+  quantity          INTEGER        NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

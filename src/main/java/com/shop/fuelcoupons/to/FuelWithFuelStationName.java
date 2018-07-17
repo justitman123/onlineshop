@@ -6,6 +6,8 @@ public class FuelWithFuelStationName extends BaseTo {
 
     private String fuelStationName;
 
+    private boolean enabled;
+
     private String fuelName;
 
     private BigDecimal price;
@@ -13,15 +15,17 @@ public class FuelWithFuelStationName extends BaseTo {
     public FuelWithFuelStationName() {
     }
 
-    public FuelWithFuelStationName(String fuelStationName, String fuelName, BigDecimal price) {
+    public FuelWithFuelStationName(String fuelStationName, boolean enabled, String fuelName, BigDecimal price) {
         this.fuelStationName = fuelStationName;
+        this.enabled = enabled;
         this.fuelName = fuelName;
         this.price = price;
     }
 
-    public FuelWithFuelStationName(Integer id, String fuelStationName, String fuelName, BigDecimal price) {
+    public FuelWithFuelStationName(Integer id, String fuelStationName, boolean enabled, String fuelName, BigDecimal price) {
         super(id);
         this.fuelStationName = fuelStationName;
+        this.enabled = enabled;
         this.fuelName = fuelName;
         this.price = price;
     }
@@ -38,11 +42,17 @@ public class FuelWithFuelStationName extends BaseTo {
         return price;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     @Override
     public String toString() {
         return "FuelWithFuelStationName{" +
-                "fuelStationName='" + fuelStationName + '\'' +
-                ", fuelName='" + fuelName + '\'' +
+                "id=" + id +
+                ", fuelStationName='" + fuelStationName +
+                ", enabled=" + enabled +
+                ", fuelName='" + fuelName +
                 ", price=" + price +
                 '}';
     }
