@@ -22,9 +22,9 @@ public class CartTestData {
     public static final Cart CART5 = new Cart(CART1_ID + 4, "WOG", new BigDecimal(250).setScale(2, RoundingMode.HALF_EVEN), new BigDecimal(25).setScale(2, RoundingMode.HALF_EVEN), "ДТ", 10);
     public static final Cart CART6 = new Cart(CART1_ID + 5, "WOG", new BigDecimal(120).setScale(2, RoundingMode.HALF_EVEN), new BigDecimal(12).setScale(2, RoundingMode.HALF_EVEN), "ГАЗ", 10);
     public static final Cart ADMIN_CART1 = new Cart(ADMIN_CART_ID, "Авиас", new BigDecimal(120).setScale(2, RoundingMode.HALF_EVEN), new BigDecimal(12).setScale(2, RoundingMode.HALF_EVEN), "ГАЗ", 10);
-    public static final Cart ADMIN_CART2 = new Cart(ADMIN_CART_ID + 1, "Авиас", new BigDecimal(120).setScale(2, RoundingMode.HALF_EVEN), new BigDecimal(12).setScale(2, RoundingMode.HALF_EVEN), "А92", 10);
+    public static final Cart ADMIN_CART2 = new Cart(ADMIN_CART_ID + 1, "Авиас", new BigDecimal(120).setScale(2, RoundingMode.HALF_EVEN), new BigDecimal(10).setScale(2, RoundingMode.HALF_EVEN), "А92", 12);
 
-    public static final List<Cart> CARTS = Arrays.asList(CART6, CART5, CART4, CART3, CART2, CART1);
+    public static final List<Cart> CARTS = Arrays.asList(CART1, CART2, CART3, CART4, CART5, CART6);
 
     public static Cart getCreated() {
         return new Cart(null, "Neftek", new BigDecimal(150).setScale(2, RoundingMode.HALF_EVEN), new BigDecimal(50).setScale(2, RoundingMode.HALF_EVEN), "А95", 3);

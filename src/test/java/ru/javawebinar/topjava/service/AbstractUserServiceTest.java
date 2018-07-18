@@ -21,7 +21,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     protected UserService service;
 
     @Test
-    public void create() throws Exception {
+    public void create() {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", false, new Date(), Collections.singleton(Role.ROLE_USER));
         User created = service.create(newUser);
         newUser.setId(created.getId());
@@ -29,28 +29,49 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     }
 
     @Test(expected = DataAccessException.class)
-    public void duplicateMailCreate() throws Exception {
+    public void duplicateMailCreate() {
         service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
     }
 
-    @Test(expected = NotFoundException.class)
-    public void notFoundDelete() throws Exception {
-        service.delete(1);
+    @Test
+    public void delete() {
+        service.delete(USER_ID);
+        assertMatch(service.getAll(), ADMIN);
     }
 
     @Test(expected = NotFoundException.class)
-    public void getNotFound() throws Exception {
+    public void notFoundDelete() {
+        service.delete(1);
+    }
+
+    @Test
+    public void get() throws Exception {
+        User user = service.get(ADMIN_ID);
+        assertMatch(user, ADMIN);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getNotFound() {
         service.get(1);
     }
 
     @Test
-    public void getByEmail() throws Exception {
+    public void getByEmail() {
         User user = service.getByEmail("admin@gmail.com");
         assertMatch(user, ADMIN);
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void update() {
+        User updated = new User(USER);
+        updated.setName("UpdatedName");
+        updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
+        service.update(updated);
+        assertMatch(service.get(USER_ID), updated);
+    }
+
+    @Test
+    public void getAll() {
         List<User> all = service.getAll();
         assertMatch(all, ADMIN, USER);
     }
