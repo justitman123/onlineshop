@@ -12,18 +12,17 @@ public class UserServiceLogin implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.getByEmail(s.toLowerCase());
         AuthorizedUser.setUser(user);
-        System.out.println(" AuthorizedUser.setUser "+user);
         AuthorizedUser.setId(user.getId());
-        System.out.println(" loadUserByUsername "+AuthorizedUser.id());
         System.out.println(user.getRoles());
         if (user == null) {
             throw new UsernameNotFoundException("User " + s + " is not found");
         }
-        System.out.println("loadUserByUsername "+user.toString());
+        System.out.println("loadUserByUsername " + user.toString());
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getRoles());
 
     }

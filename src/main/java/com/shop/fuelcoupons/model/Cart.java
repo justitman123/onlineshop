@@ -23,12 +23,12 @@ public class Cart extends AbstractBaseEntity {
     @Column(name = "amount", nullable = false)
     @NotNull
     @Digits(integer=20, fraction=2)
-    private BigDecimal amount;
+    private BigDecimal amount = new BigDecimal(0.00).setScale(2, BigDecimal.ROUND_HALF_UP);
 
     @Column(name = "price", nullable = false)
     @NotNull
     @Digits(integer=20, fraction=2)
-    private BigDecimal price;
+    private BigDecimal price = new BigDecimal(0.00).setScale(2, BigDecimal.ROUND_HALF_UP);
 
     @Column(name = "fuel_name", nullable = false)
     @NotBlank

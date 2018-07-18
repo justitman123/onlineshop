@@ -74,11 +74,6 @@ public abstract class AbstractUserController {
         userService.update(userTo);
     }
 
-    public User getByMail(String email) {
-        log.info("getByEmail {}", email);
-        return userService.getByEmail(email);
-    }
-
     public void enable(int id, boolean enabled) {
         log.info((enabled ? "enable " : "disable ") + id);
         userService.enable(id, enabled);
