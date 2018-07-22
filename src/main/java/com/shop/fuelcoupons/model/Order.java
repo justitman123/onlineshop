@@ -1,13 +1,12 @@
 package com.shop.fuelcoupons.model;
 
 import com.shop.fuelcoupons.util.DateTimeUtil;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,9 +22,14 @@ public class Order extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime dateTime;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "order_address", nullable = false)
     @NotBlank
+    @Size(min = 2, max = 30)
+    private String address;
+
+    @Column(name = "status", nullable = false)
     @Size(min = 2, max = 20)
+    @NotBlank
     private String status;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
@@ -40,14 +44,23 @@ public class Order extends AbstractBaseEntity {
     public Order() {
     }
 
-    public Order(LocalDateTime dateTime, String status) {
-        this(null, dateTime, status);
+    public Order(String address) {
+        this(null, null, address, "PROCESSING");
     }
 
-    public Order(Integer id, LocalDateTime dateTime, String status) {
+    public Order(Integer id, LocalDateTime dateTime, String address, String status) {
         super(id);
         this.dateTime = dateTime;
+        this.address = address;
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public LocalDateTime getDateTime() {

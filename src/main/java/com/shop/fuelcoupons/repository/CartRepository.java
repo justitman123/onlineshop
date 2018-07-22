@@ -9,6 +9,8 @@ public interface CartRepository {
 
     boolean delete(int id, int userId);
 
+    boolean deleteAll(int userId);
+
     Cart get(int id, int userId);
 
     List<Cart> getAll(int userId);

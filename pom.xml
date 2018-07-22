@@ -81,7 +81,7 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>git init
+    </build>
 
     <dependencies>
         <!-- Spring -->

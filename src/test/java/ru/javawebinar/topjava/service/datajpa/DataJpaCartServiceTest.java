@@ -1,19 +1,18 @@
-package ru.javawebinar.topjava.service;
+package ru.javawebinar.topjava.service.datajpa;
 
 import com.shop.fuelcoupons.model.Cart;
 import com.shop.fuelcoupons.service.CartService;
 import com.shop.fuelcoupons.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.javawebinar.topjava.service.AbstractServiceTest;
 
 import static ru.javawebinar.topjava.CartTestData.*;
-import static ru.javawebinar.topjava.CartTestData.CART1;
-import static ru.javawebinar.topjava.CartTestData.CART2;
+import static ru.javawebinar.topjava.CartTestData.CARTS;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
-public abstract class AbstractCartServiceTest extends AbstractServiceTest {
-
+public class DataJpaCartServiceTest extends AbstractServiceTest {
     @Autowired
     protected CartService service;
 
@@ -66,6 +65,4 @@ public abstract class AbstractCartServiceTest extends AbstractServiceTest {
     public void getAll() throws Exception {
         assertMatch(service.getAll(USER_ID), CARTS);
     }
-
-
 }

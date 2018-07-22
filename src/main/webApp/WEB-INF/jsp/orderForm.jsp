@@ -2,37 +2,45 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
+<br>
 <script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/cartDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
+<br/>
 <div class="jumbotron">
     <div class="container">
-        <table class="table table-striped" id="datatableCart">
-            <thead>
-            <tr>
-                <th><spring:message code="cart.fuelStationName"/></th>
-                <th><spring:message code="cart.amount"/></th>
-                <th><spring:message code="cart.price"/></th>
-                <th><spring:message code="cart.fuelName"/></th>
-                <th><spring:message code="cart.quantity"/></th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-        </table>
-        <div class="form-group">
-            <label for="address" class="col-form-label"></label>
-            <input type="text" class="form-control" id="address" name="address"
-                   placeholder="<spring:message code="orders.inputAddress"/>">
-        </div>
-        <button class="btn btn-primary" onclick="confirm()">
-            <span class="fa fa-plus"></span>
-            <spring:message code="common.confirm"/>
-        </button>
+        <form method="post" action="order">
+            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+            <table class="table table-striped" id="datatableCart">
+                <thead>
+                <tr>
+                    <th><spring:message code="cart.fuelStationName"/></th>
+                    <th><spring:message code="cart.amount"/></th>
+                    <th><spring:message code="cart.price"/></th>
+                    <th><spring:message code="cart.fuelName"/></th>
+                    <th><spring:message code="cart.quantity"/></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+            </table>
+            <div class="form-group">
+                <label for="address" class="col-form-label"></label>
+                <input type="text" class="form-control" id="address" name="address"
+                       minlength="5" placeholder="<spring:message code="orders.inputAddress"/>">
+            </div>
+            <button class="btn btn-primary" type="button" onclick="window.history.back()">
+                <span class="fa fa-plus"></span>
+                <spring:message code="common.cancel"/></button>
+            <button class="btn btn-primary" type="submit">
+                <span class="fa fa-plus"></span>
+                <spring:message code="common.confirm"/></button>
+        </form>
     </div>
 </div>
 

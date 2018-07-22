@@ -48,10 +48,11 @@ public class OrderWithSum extends BaseTo {
 
     @Override
     public String toString() {
-        return "OrderWithExceed{" +
+        return "OrderWithSum{" +
                 "id=" + id +
                 ", dateTime=" + dateTime +
                 ", amountOrder=" + amountOrder +
+                ", status='" + status +
                 '}';
     }
 }

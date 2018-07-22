@@ -1,13 +1,17 @@
 package com.shop.fuelcoupons.service.service_impl;
 
 import com.shop.fuelcoupons.model.Order;
+import com.shop.fuelcoupons.model.OrderDetail;
+import com.shop.fuelcoupons.repository.OrderDetailRepository;
 import com.shop.fuelcoupons.repository.OrderRepository;
+import com.shop.fuelcoupons.repository.datajpa.CrudCartRepository;
 import com.shop.fuelcoupons.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.shop.fuelcoupons.util.ValidationUtil.checkNotFoundWithId;
@@ -18,9 +22,15 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository repository;
 
+    private final OrderDetailRepository detailRepository;
+
+    private final CrudCartRepository cartRepository;
+
     @Autowired
-    public OrderServiceImpl(OrderRepository repository) {
+    public OrderServiceImpl(OrderRepository repository, OrderDetailRepository detailRepository, CrudCartRepository cartRepository) {
         this.repository = repository;
+        this.detailRepository = detailRepository;
+        this.cartRepository = cartRepository;
     }
 
     @Override
@@ -53,6 +63,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(Order order, int userId) {
         Assert.notNull(order, "order must not be null");
-        return repository.save(order, userId);
+        List<OrderDetail> orderDetails = new ArrayList<>(0);
+        cartRepository.getAll(userId)
+                .stream()
+                .map(cart -> new OrderDetail(cart.getFuelStationName(), cart.getAmount(),
+                        cart.getPrice(), cart.getFuelName(), cart.getQuantity()))
+                .forEach(orderDetails::add);
+        Order savedOrder = repository.save(order, userId);
+        cartRepository.deleteAll(userId);
+        return savedOrder;
     }
 }

@@ -24,22 +24,24 @@ CREATE UNIQUE INDEX users_unique_email_idx
   ON users (email);
 
 CREATE TABLE orders (
-  id        INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  user_id   INTEGER   NOT NULL,
-  date_time TIMESTAMP NOT NULL,
-  status    VARCHAR   NOT NULL,
+  id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  user_id       INTEGER   NOT NULL,
+  date_time     TIMESTAMP NOT NULL,
+  order_address VARCHAR   NOT NULL,
+  status        VARCHAR   NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX orders_unique_id_datetime_status_idx
   ON orders (user_id, date_time, status);
 
 CREATE TABLE order_details (
-  id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  amount        NUMERIC(13, 2) NOT NULL,
-  fuel_name     VARCHAR        NOT NULL,
-  order_address VARCHAR        NOT NULL,
-  quantity      INTEGER        NOT NULL,
-  order_id      INTEGER        NOT NULL,
+  id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  fuel_station_name VARCHAR        NOT NULL,
+  amount            NUMERIC(13, 2) NOT NULL,
+  price             NUMERIC(13, 2) NOT NULL,
+  fuel_name         VARCHAR        NOT NULL,
+  quantity          INTEGER        NOT NULL,
+  order_id          INTEGER        NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE
 );
 
@@ -52,14 +54,14 @@ CREATE UNIQUE INDEX fuel_station_unique_name_idx
 
 CREATE TABLE fuels
 (
-  id      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-name    VARCHAR                 NOT NULL,
-price   NUMERIC(13, 2)          NOT NULL,
-enabled BOOL DEFAULT TRUE       NOT NULL,
-fuelStationId INTEGER NOT NULL REFERENCES fuel_stations (id) ON UPDATE CASCADE ON DELETE CASCADE
+  id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name          VARCHAR                 NOT NULL,
+  price         NUMERIC(13, 2)          NOT NULL,
+  enabled       BOOL DEFAULT TRUE       NOT NULL,
+  fuelStationId INTEGER                 NOT NULL REFERENCES fuel_stations (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX fuel_station_uni_idx
-ON fuels (name, fuelStationId);
+  ON fuels (name, fuelStationId);
 
 CREATE TABLE user_roles
 (

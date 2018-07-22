@@ -6,7 +6,6 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<sec:csrfMetaTags/>
 <script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/userDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>

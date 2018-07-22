@@ -12,10 +12,20 @@ import java.math.BigDecimal;
 @Table(name = "order_details")
 public class OrderDetail extends AbstractBaseEntity {
 
+    @Column(name = "fuel_station_name", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 120)
+    private String fuelStationName;
+
     @Column(name = "amount", nullable = false)
     @NotNull
     @Digits(integer=20, fraction=2)
-    private BigDecimal amount = new BigDecimal(0.00).setScale(2, BigDecimal.ROUND_HALF_UP);
+    private BigDecimal amount;
+
+    @Column(name = "price", nullable = false)
+    @NotNull
+    @Digits(integer=20, fraction=2)
+    private BigDecimal price;
 
     @Column(name = "fuel_name", nullable = false)
     @NotBlank
@@ -26,40 +36,31 @@ public class OrderDetail extends AbstractBaseEntity {
     @Range(min = 10, max = 5000)
     private int quantity;
 
-    @Column(name = "order_address", nullable = false)
-    @Size(min = 2, max = 120)
-    private String orderAddress;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Order order;
 
-    public OrderDetail() {
+    public OrderDetail(String fuelStationName, BigDecimal amount, BigDecimal price, String fuelName, int quantity) {
+        this(null, fuelStationName, amount, price, fuelName, quantity);
     }
 
-    public OrderDetail(BigDecimal amount, String fuelName, int quantity,  String orderAddress) {
-        this.amount = amount;
-        this.fuelName = fuelName;
-        this.quantity = quantity;
-        this.orderAddress = orderAddress;
-    }
-
-    public OrderDetail(Integer id, BigDecimal amount, String fuelName, int quantity, String orderAddress) {
+    public OrderDetail(Integer id, String fuelStationName, BigDecimal amount, BigDecimal price, String fuelName, int quantity) {
         super(id);
+        this.fuelStationName = fuelStationName;
         this.amount = amount;
+        this.price = price;
         this.fuelName = fuelName;
         this.quantity = quantity;
-        this.orderAddress = orderAddress;
     }
 
-    public String getOrderAddress() {
-        return orderAddress;
+    public String getFuelStationName() {
+        return fuelStationName;
     }
 
-    public void setOrderAddress(String orderAddress) {
-        this.orderAddress = orderAddress;
+    public void setFuelStationName(String fuelStationName) {
+        this.fuelStationName = fuelStationName;
     }
 
     public BigDecimal getAmount() {
@@ -68,6 +69,14 @@ public class OrderDetail extends AbstractBaseEntity {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getFuelName() {
@@ -97,10 +106,12 @@ public class OrderDetail extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "OrderDetail{" +
-                "amount=" + amount +
+                "id=" + id +
+                ", fuelStationName='" + fuelStationName + '\'' +
+                ", amount=" + amount +
+                ", price=" + price +
                 ", fuelName='" + fuelName + '\'' +
                 ", quantity=" + quantity +
-                ", id=" + id +
                 '}';
     }
 }

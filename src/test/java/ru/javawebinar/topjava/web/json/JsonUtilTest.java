@@ -11,7 +11,7 @@ import static ru.javawebinar.topjava.CartTestData.*;
 public class JsonUtilTest {
 
     @Test
-    public void testReadWriteValue() throws Exception {
+    public void testReadWriteValue() {
         String json = JsonUtil.writeValue(ADMIN_CART1);
         System.out.println(json);
         Cart cart = JsonUtil.readValue(json, Cart.class);
@@ -19,7 +19,7 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testReadWriteValues() throws Exception {
+    public void testReadWriteValues() {
         String json = JsonUtil.writeValue(CARTS);
         System.out.println(json);
         List<Cart> carts = JsonUtil.readValues(json, Cart.class);

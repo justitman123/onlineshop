@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.shop.fuelcoupons.util.ValidationUtil.assureIdConsistent;
-import static com.shop.fuelcoupons.util.ValidationUtil.checkNew;
 
 public abstract class AbstractOrderController {
     private final Logger log = LoggerFactory.getLogger(getClass());
@@ -40,8 +39,7 @@ public abstract class AbstractOrderController {
 
     public Order create(Order order) {
         int userId = AuthorizedUser.id();
-        checkNew(order);
-        log.info("create {} for user {}", order, userId);
+        log.info("create {} for user {}", userId);
         return service.create(order, userId);
     }
 

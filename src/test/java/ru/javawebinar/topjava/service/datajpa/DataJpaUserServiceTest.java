@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.service;
+package ru.javawebinar.topjava.service.datajpa;
 
 import com.shop.fuelcoupons.model.Role;
 import com.shop.fuelcoupons.model.User;
@@ -8,14 +8,17 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import ru.javawebinar.topjava.service.AbstractServiceTest;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import static ru.javawebinar.topjava.UserTestData.*;
+import static ru.javawebinar.topjava.UserTestData.USER;
+import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
-public abstract class AbstractUserServiceTest extends AbstractServiceTest {
+public class DataJpaUserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;

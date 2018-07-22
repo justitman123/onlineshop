@@ -25,6 +25,9 @@ public interface CrudCartRepository extends JpaRepository<Cart, Integer> {
     @Query("SELECT m FROM Cart m WHERE m.user.id=:userId")
     List<Cart> getAll(@Param("userId") int userId);
 
+    @Query("DELETE FROM Cart m WHERE m.user.id=:userId")
+    boolean deleteAll(@Param("userId") int userId);
+
     @Override
     Optional<Cart> findById(Integer integer);
 }

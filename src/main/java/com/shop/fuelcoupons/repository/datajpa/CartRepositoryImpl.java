@@ -47,4 +47,9 @@ public class CartRepositoryImpl implements CartRepository {
     public List<Cart> getAll(int userId) {
         return crudCartRepository.getAll(userId);
     }
+
+    @Override
+    public boolean deleteAll(int userId) {
+        return crudCartRepository.deleteAll(userId);
+    }
 }
